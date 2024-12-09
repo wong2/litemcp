@@ -10,7 +10,7 @@ A TypeScript library that simplifies MCP server development
 ## Installation
 
 ```bash
-npm install litemcp
+npm install litemcp zod
 ```
 
 ## Example
