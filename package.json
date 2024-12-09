@@ -1,12 +1,13 @@
 {
   "name": "litemcp",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A TypeScript library that simplifies MCP server development",
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "type": "module",
   "scripts": {
@@ -37,7 +38,6 @@
       "src/index.ts"
     ],
     "format": [
-      "cjs",
       "esm"
     ],
     "dts": true,

@@ -95,5 +95,6 @@ export class LiteMCP {
     this.setupHandlers(server);
     const transport = new StdioServerTransport();
     await server.connect(transport);
+    console.error(`${this.name} server running on stdio`);
   }
 }
