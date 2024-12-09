@@ -15,7 +15,7 @@ npm install litemcp zod
 
 ## Example
 
-```ts
+```js
 import { LiteMCP } from "litemcp";
 import { z } from "zod";
 
@@ -35,6 +35,16 @@ server.addTool({
 
 server.run();
 ```
+
+## Running Your Server
+
+The fastest way to test and debug your server is with the MCP Inspector:
+
+```bash
+npx litemcp dev server.js
+```
+
+This will launch the MCP Inspector for testing and debugging your MCP server.
 
 ## Roadmap
 
