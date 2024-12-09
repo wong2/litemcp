@@ -1,0 +1,48 @@
+{
+  "name": "litemcp",
+  "version": "0.1.0",
+  "description": "A TypeScript library that simplifies MCP server development",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [
+    "MCP"
+  ],
+  "author": "wong2",
+  "license": "MIT",
+  "packageManager": "pnpm@9.14.4+sha512.c8180b3fbe4e4bca02c94234717896b5529740a6cbadf19fa78254270403ea2f27d4e1d46a08a0f56c89b63dc8ebfd3ee53326da720273794e6200fcf0d184ab",
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.0",
+    "@types/node": "^22.10.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "zod": "^3.23.8"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.3",
+    "zod-to-json-schema": "^3.23.5"
+  },
+  "peerDependencies": {
+    "zod": "^3.23.8"
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "dts": true,
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true
+  }
+}
