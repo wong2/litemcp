@@ -15,7 +15,7 @@ type Parameters = z.ZodTypeAny;
 interface Tool<Params extends Parameters> {
   name: string;
   description?: string;
-  parameters: Params;
+  parameters?: Params;
   execute: (args: z.infer<Params>) => Promise<any>;
 }
 
@@ -46,11 +46,13 @@ export class LiteMCP {
   private setupToolHandlers(server: Server) {
     server.setRequestHandler(ListToolsRequestSchema, async () => {
       return {
-        tools: this.#tools.map((tool) => ({
-          name: tool.name,
-          description: tool.description,
-          inputSchema: zodToJsonSchema(tool.parameters),
-        })),
+        tools: this.#tools.map((tool) => {
+          return {
+            name: tool.name,
+            description: tool.description,
+            inputSchema: tool.parameters ? zodToJsonSchema(tool.parameters) : undefined,
+          };
+        }),
       };
     });
     server.setRequestHandler(CallToolRequestSchema, async (request) => {
@@ -58,13 +60,17 @@ export class LiteMCP {
       if (!tool) {
         throw new McpError(ErrorCode.MethodNotFound, `Unknown tool: ${request.params.name}`);
       }
-      const parsed = tool.parameters.safeParse(request.params.arguments);
-      if (!parsed.success) {
-        throw new McpError(ErrorCode.InvalidRequest, `Invalid ${request.params.name} arguments`);
+      let args: any = undefined;
+      if (tool.parameters) {
+        const parsed = tool.parameters.safeParse(request.params.arguments);
+        if (!parsed.success) {
+          throw new McpError(ErrorCode.InvalidRequest, `Invalid ${request.params.name} arguments`);
+        }
+        args = parsed.data;
       }
       let result: any;
       try {
-        result = await tool.execute(parsed.data);
+        result = await tool.execute(args);
       } catch (error) {
         return {
           content: [{ type: "text", text: `Error: ${error}` }],
