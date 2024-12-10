@@ -4,7 +4,7 @@ A TypeScript library that simplifies MCP server development
 
 ## Features
 
-- Simple tool definition
+- Simple tool and resource definition
 - Built-in error handling
 - Built-in CLI for testing and debugging
 
