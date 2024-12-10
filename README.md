@@ -14,7 +14,7 @@ A TypeScript library that simplifies MCP server development
 npm install litemcp zod
 ```
 
-## Example
+## Quickstart
 
 ```js
 import { LiteMCP } from "litemcp";
@@ -34,7 +34,78 @@ server.addTool({
   },
 });
 
+server.addResource({
+  uri: "file:///logs/app.log",
+  name: "Application Logs",
+  mimeType: "text/plain",
+  async read() {
+    return {
+      text: "Example log content",
+    };
+  },
+});
+
 server.start();
+```
+
+You can test the server in terminal with:
+
+```bash
+npx litemcp dev server.js
+```
+
+## Core Concepts
+
+### Tools
+
+Tools in MCP allow servers to expose executable functions that can be invoked by clients and used by LLMs to perform actions.
+
+```js
+server.addTool({
+  name: "fetch",
+  description: "Fetch the content of a url",
+  parameters: z.object({
+    url: z.string(),
+  }),
+  execute: async (args) => {
+    const content = await fetchWebpageContent(args.url);
+    return content;
+  },
+});
+```
+
+### Resources
+
+Resources represent any kind of data that an MCP server wants to make available to clients. This can include:
+
+- File contents
+- Screenshots and images
+- Log files
+- And more
+
+Each resource is identified by a unique URI and can contain either text or binary data.
+
+```js
+server.addResource({
+  uri: "file:///logs/app.log",
+  name: "Application Logs",
+  mimeType: "text/plain",
+  async read() {
+    return {
+      text: await readLogFile(),
+    };
+  },
+});
+```
+
+You can also return binary contents in `read`:
+
+```js
+async read() {
+  return {
+    blob: 'base64-encoded-data'
+  }
+}
 ```
 
 ## Running Your Server
@@ -59,7 +130,6 @@ npx litemcp inspect server.js
 
 ## Roadmap
 
-- Add support for Resources
 - Add support for Prompts
 
 ## Related
