@@ -15,7 +15,7 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
-    "publish": "npm run build && npm publish"
+    "release": "pnpm run build && pnpm publish"
   },
   "keywords": [
     "MCP"
