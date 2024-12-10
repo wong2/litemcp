@@ -61,3 +61,8 @@ npx litemcp inspect server.js
 
 - Add support for Resources
 - Add support for Prompts
+
+## Related
+
+- [mcp-cli](https://github.com/wong2/mcp-cli) - A CLI for testing and debugging MCP servers
+- [mcpservers.org](https://mcpservers.org) - A curated list of MCP servers
