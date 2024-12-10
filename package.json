@@ -1,6 +1,6 @@
 {
   "name": "litemcp",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "bin": {
     "litemcp": "dist/cli/index.js"
   },

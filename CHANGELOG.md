@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.5.0
+
+- Add support for Resources
+
 ## v0.4.0
 
 - Change `litemcp dev` to use `mcp-cli`
@@ -12,8 +16,6 @@
 - `Server.run()` is now `Server.start()`
 
 ## v0.2.0
-
-### Features
 
 - Add `litemcp dev` command
 
