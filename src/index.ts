@@ -92,7 +92,7 @@ export class LiteMCP {
     this.#tools.push(tool as unknown as Tool<Parameters>);
   }
 
-  public async run() {
+  public async start(_transportType: "stdio" = "stdio") {
     const capabilities: ServerCapabilities = {};
     if (this.#tools.length) {
       capabilities.tools = {};

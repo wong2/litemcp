@@ -33,7 +33,7 @@ server.addTool({
   },
 });
 
-server.run();
+server.start();
 ```
 
 ## Running Your Server
