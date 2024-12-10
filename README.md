@@ -66,3 +66,4 @@ npx litemcp inspect server.js
 
 - [mcp-cli](https://github.com/wong2/mcp-cli) - A CLI for testing and debugging MCP servers
 - [mcpservers.org](https://mcpservers.org) - A curated list of MCP servers
+- [FastMCP](https://github.com/jlowin/fastmcp) - A Python library for MCP server development, inspiration for this project
