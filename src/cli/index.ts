@@ -2,6 +2,7 @@
 
 import { defineCommand, runMain } from "citty";
 import dev from "./dev.js";
+import inspect from "./inspect.js";
 
 const main = defineCommand({
   meta: {
@@ -9,6 +10,7 @@ const main = defineCommand({
   },
   subCommands: {
     dev,
+    inspect,
   },
 });
 

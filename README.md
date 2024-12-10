@@ -6,6 +6,7 @@ A TypeScript library that simplifies MCP server development
 
 - Simple tool definition
 - Built-in error handling
+- Built-in CLI for testing and debugging
 
 ## Installation
 
@@ -38,13 +39,23 @@ server.start();
 
 ## Running Your Server
 
-The fastest way to test and debug your server is with the MCP Inspector:
+### Test with `mcp-cli`
+
+The fastest way to test and debug your server is with [`mcp-cli`](https://github.com/wong2/mcp-cli):
 
 ```bash
 npx litemcp dev server.js
 ```
 
-This will launch the MCP Inspector for testing and debugging your MCP server.
+This will run your server with `mcp-cli` for testing and debugging your MCP server in the terminal.
+
+### Inspect with `MCP Inspector`
+
+Another way is to use the official [`MCP Inspector`](https://modelcontextprotocol.io/docs/tools/inspector) to inspect your server with a Web UI:
+
+```bash
+npx litemcp inspect server.js
+```
 
 ## Roadmap
 

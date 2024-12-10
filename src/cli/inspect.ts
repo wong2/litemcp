@@ -1,10 +1,10 @@
 import { defineCommand } from "citty";
-import { $ } from "execa";
+import { execa } from "execa";
 
 export default defineCommand({
   meta: {
-    name: "dev",
-    description: "Run server with mcp-cli",
+    name: "inspect",
+    description: "Run server with MCP inspector",
   },
   args: {
     script: {
@@ -15,10 +15,9 @@ export default defineCommand({
     },
   },
   async run({ args }) {
-    await $({
-      stdin: "inherit",
+    await execa({
       stdout: "inherit",
       stderr: "inherit",
-    })`npx @wong2/mcp-cli node ${args.script}`;
+    })`npx @modelcontextprotocol/inspector node ${args.script}`;
   },
 });
