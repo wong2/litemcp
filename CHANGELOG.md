@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.0
+
+- Change `litemcp dev` to use `mcp-cli`
+- Add `litemcp inspect` command
+
 ## v0.3.0
 
 ### Breaking Changes
