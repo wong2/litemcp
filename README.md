@@ -1,6 +1,6 @@
 # LiteMCP
 
-A TypeScript library that simplifies MCP server development
+A TypeScript framework for building MCP (Model Context Protocol) servers elegantly
 
 ## Features
 
