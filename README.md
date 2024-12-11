@@ -39,7 +39,7 @@ server.addResource({
   uri: "file:///logs/app.log",
   name: "Application Logs",
   mimeType: "text/plain",
-  async read() {
+  async load() {
     return {
       text: "Example log content",
     };
@@ -91,7 +91,7 @@ server.addResource({
   uri: "file:///logs/app.log",
   name: "Application Logs",
   mimeType: "text/plain",
-  async read() {
+  async load() {
     return {
       text: await readLogFile(),
     };
@@ -99,10 +99,10 @@ server.addResource({
 });
 ```
 
-You can also return binary contents in `read`:
+You can also return binary contents in `load`:
 
 ```js
-async read() {
+async load() {
   return {
     blob: 'base64-encoded-data'
   }
