@@ -3,39 +3,26 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import {
   CallToolRequestSchema,
   ErrorCode,
+  GetPromptRequestSchema,
+  ListPromptsRequestSchema,
   ListResourcesRequestSchema,
   ListToolsRequestSchema,
   McpError,
   ReadResourceRequestSchema,
   ServerCapabilities,
 } from "@modelcontextprotocol/sdk/types.js";
-import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-
-type Parameters = z.ZodTypeAny;
-
-interface Tool<Params extends Parameters> {
-  name: string;
-  description?: string;
-  parameters?: Params;
-  execute: (args: z.infer<Params>) => Promise<any>;
-}
-
-interface Resource {
-  uri: string;
-  name: string;
-  description?: string;
-  mimeType?: string;
-  read: () => Promise<{ text: string } | { blob: string }>;
-}
+import { Prompt, PromptArgument, Resource, Tool, ToolParameters } from "./types.js";
 
 export class LiteMCP {
-  #tools: Tool<Parameters>[];
+  #tools: Tool[];
   #resources: Resource[];
+  #prompts: Prompt[];
 
   constructor(public name: string, public version: string) {
     this.#tools = [];
     this.#resources = [];
+    this.#prompts = [];
   }
 
   private setupHandlers(server: Server) {
@@ -45,6 +32,9 @@ export class LiteMCP {
     }
     if (this.#resources.length) {
       this.setupResourceHandlers(server);
+    }
+    if (this.#prompts.length) {
+      this.setupPromptHandlers(server);
     }
   }
 
@@ -140,12 +130,59 @@ export class LiteMCP {
     });
   }
 
-  public addTool<Params extends Parameters>(tool: Tool<Params>) {
-    this.#tools.push(tool as unknown as Tool<Parameters>);
+  private setupPromptHandlers(server: Server) {
+    server.setRequestHandler(ListPromptsRequestSchema, async () => {
+      return {
+        prompts: this.#prompts.map((prompt) => {
+          return {
+            name: prompt.name,
+            description: prompt.description,
+            arguments: prompt.arguments,
+          };
+        }),
+      };
+    });
+    server.setRequestHandler(GetPromptRequestSchema, async (request) => {
+      const prompt = this.#prompts.find((prompt) => prompt.name === request.params.name);
+      if (!prompt) {
+        throw new McpError(ErrorCode.MethodNotFound, `Unknown prompt: ${request.params.name}`);
+      }
+      const args = request.params.arguments;
+      if (prompt.arguments) {
+        for (const arg of prompt.arguments) {
+          if (arg.required && !(args && arg.name in args)) {
+            throw new McpError(ErrorCode.InvalidRequest, `Missing required argument: ${arg.name}`);
+          }
+        }
+      }
+      let result: string;
+      try {
+        result = await prompt.load(args as Record<string, string | undefined>);
+      } catch (error) {
+        throw new McpError(ErrorCode.InternalError, `Error loading prompt: ${error}`);
+      }
+      return {
+        description: prompt.description,
+        messages: [
+          {
+            role: "user",
+            content: { type: "text", text: result },
+          },
+        ],
+      };
+    });
+  }
+
+  public addTool<Params extends ToolParameters>(tool: Tool<Params>) {
+    this.#tools.push(tool as unknown as Tool);
   }
 
   public addResource(resource: Resource) {
     this.#resources.push(resource);
+  }
+
+  public addPrompt<const Args extends PromptArgument[]>(prompt: Prompt<Args>) {
+    this.#prompts.push(prompt);
   }
 
   public async start(_transportType: "stdio" = "stdio") {
@@ -155,6 +192,9 @@ export class LiteMCP {
     }
     if (this.#resources.length) {
       capabilities.resources = {};
+    }
+    if (this.#prompts.length) {
+      capabilities.prompts = {};
     }
     const server = new Server({ name: this.name, version: this.version }, { capabilities });
     this.setupHandlers(server);
