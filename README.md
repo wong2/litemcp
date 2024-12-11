@@ -128,6 +128,10 @@ Another way is to use the official [`MCP Inspector`](https://modelcontextprotoco
 npx litemcp inspect server.js
 ```
 
+## Showcase
+
+If you've developed a server using LiteMCP, please submit a PR to showcase it here!
+
 ## Roadmap
 
 - Add support for Prompts
