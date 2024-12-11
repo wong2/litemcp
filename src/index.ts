@@ -110,9 +110,9 @@ export class LiteMCP {
       if (!resource) {
         throw new McpError(ErrorCode.MethodNotFound, `Unknown resource: ${request.params.uri}`);
       }
-      let result: Awaited<ReturnType<Resource["read"]>>;
+      let result: Awaited<ReturnType<Resource["load"]>>;
       try {
-        result = await resource.read();
+        result = await resource.load();
       } catch (error) {
         throw new McpError(ErrorCode.InternalError, `Error reading resource: ${error}`, {
           uri: resource.uri,
@@ -155,7 +155,7 @@ export class LiteMCP {
           }
         }
       }
-      let result: string;
+      let result: Awaited<ReturnType<Prompt["load"]>>;
       try {
         result = await prompt.load(args as Record<string, string | undefined>);
       } catch (error) {

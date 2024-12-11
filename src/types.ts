@@ -14,7 +14,7 @@ export interface Resource {
   name: string;
   description?: string;
   mimeType?: string;
-  read: () => Promise<{ text: string } | { blob: string }>;
+  load: () => Promise<{ text: string } | { blob: string }>;
 }
 
 export type PromptArgument = Readonly<{
