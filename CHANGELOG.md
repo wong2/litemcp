@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.0
+
+- `litemcp dev` now supports TypeScript files
+
 ## v0.6.0
 
 - Add support for Prompts

@@ -138,6 +138,7 @@ The fastest way to test and debug your server is with [`mcp-cli`](https://github
 
 ```bash
 npx litemcp dev server.js
+npx litemcp dev server.ts // ts files are also supported
 ```
 
 This will run your server with `mcp-cli` for testing and debugging your MCP server in the terminal.
