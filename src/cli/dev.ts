@@ -9,16 +9,17 @@ export default defineCommand({
   args: {
     script: {
       type: "positional",
-      description: "The js script to run",
-      valueHint: "server.js",
+      description: "The JavaScript or TypeScript script to run",
+      valueHint: "server.js or server.ts",
       required: true,
     },
   },
   async run({ args }) {
+    const command = args.script.endsWith(".ts") ? `npx tsx ${args.script}` : `node ${args.script}`;
     await $({
       stdin: "inherit",
       stdout: "inherit",
       stderr: "inherit",
-    })`npx @wong2/mcp-cli node ${args.script}`;
+    })`npx @wong2/mcp-cli ${command}`;
   },
 });
