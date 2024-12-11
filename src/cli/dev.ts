@@ -15,7 +15,9 @@ export default defineCommand({
     },
   },
   async run({ args }) {
-    const command = args.script.endsWith(".ts") ? `npx tsx ${args.script}` : `node ${args.script}`;
+    const command = args.script.endsWith(".ts")
+      ? ["npx", "tsx", args.script]
+      : ["node", args.script];
     await $({
       stdin: "inherit",
       stdout: "inherit",
