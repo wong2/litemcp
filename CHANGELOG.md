@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.6.0
+
+- Add support for Prompts
+
+### Breaking Changes
+
+- `Resource.read()` is now `Resource.load()`
+
 ## v0.5.0
 
 - Add support for Resources
