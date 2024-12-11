@@ -153,7 +153,9 @@ npx litemcp inspect server.js
 
 ## Showcase
 
-If you've developed a server using LiteMCP, please submit a PR to showcase it here!
+> If you've developed a server using LiteMCP, please submit a PR to showcase it here!
+
+- https://github.com/wong2/mcp-jina-reader
 
 ## Roadmap
 
