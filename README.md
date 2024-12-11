@@ -4,7 +4,8 @@ A TypeScript library that simplifies MCP server development
 
 ## Features
 
-- Simple tool and resource definition
+- Simple Tool, Resource, Prompt definition
+- Full TypeScript support
 - Built-in error handling
 - Built-in CLI for testing and debugging
 
@@ -108,6 +109,27 @@ async read() {
 }
 ```
 
+### Prompts
+
+Prompts enable servers to define reusable prompt templates and workflows that clients can easily surface to users and LLMs. They provide a powerful way to standardize and share common LLM interactions.
+
+```js
+server.addPrompt({
+  name: "git-commit",
+  description: "Generate a Git commit message",
+  arguments: [
+    {
+      name: "changes",
+      description: "Git diff or description of changes",
+      required: true,
+    },
+  ],
+  load: async (args) => {
+    return `Generate a concise but descriptive commit message for these changes:\n\n${args.changes}`;
+  },
+});
+```
+
 ## Running Your Server
 
 ### Test with `mcp-cli`
@@ -134,7 +156,7 @@ If you've developed a server using LiteMCP, please submit a PR to showcase it he
 
 ## Roadmap
 
-- Add support for Prompts
+- Add support for Resource Templates
 
 ## Related
 
