@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.8.0
+
+- Add support for server logging
+- Add support for SSE transport
+
 ## v0.7.0
 
 - `litemcp dev` now supports TypeScript files
