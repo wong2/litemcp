@@ -6,10 +6,10 @@ A TypeScript framework for building MCP (Model Context Protocol) servers elegant
 
 - Simple Tool, Resource, Prompt definition
 - Full TypeScript support
-- Built-in logging
+- Built-in [logging](#logging)
 - Built-in error handling
-- Built-in CLI for testing and debugging
-- Built-in support for SSE
+- Built-in CLI for [testing and debugging](#debugging-with-mcp-cli)
+- Built-in support for [SSE transport](#sse-transport)
 
 ## Installation
 
