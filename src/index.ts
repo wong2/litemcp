@@ -1,4 +1,5 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { startSSEServer, type SSEServer } from "mcp-proxy";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import {
   CallToolRequestSchema,
@@ -188,7 +189,16 @@ export class LiteMCP {
     this.#prompts.push(prompt);
   }
 
-  public async start(_transportType: "stdio" = "stdio") {
+  public async start(
+    opts:
+      | { transportType: "stdio" }
+      | {
+          transportType: "sse";
+          sse: { endpoint: `/${string}`; port: number };
+        } = {
+      transportType: "stdio",
+    }
+  ) {
     const capabilities: ServerCapabilities = { logging: {} };
     if (this.#tools.length) {
       capabilities.tools = {};
@@ -202,8 +212,18 @@ export class LiteMCP {
     const server = new Server({ name: this.name, version: this.version }, { capabilities });
     this.logger.setServer(server);
     this.setupHandlers(server);
-    const transport = new StdioServerTransport();
-    await server.connect(transport);
-    console.error(`${this.name} server running on stdio`);
+
+    if (opts.transportType === "stdio") {
+      const transport = new StdioServerTransport();
+      await server.connect(transport);
+      console.error(`${this.name} server running on stdio`);
+    } else if (opts.transportType === "sse") {
+      await startSSEServer({
+        endpoint: opts.sse.endpoint as `/${string}`,
+        port: opts.sse.port,
+        server,
+      });
+      console.error(`${this.name} server running on SSE`);
+    }
   }
 }

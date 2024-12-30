@@ -9,6 +9,7 @@ A TypeScript framework for building MCP (Model Context Protocol) servers elegant
 - Built-in logging
 - Built-in error handling
 - Built-in CLI for testing and debugging
+- Built-in support for SSE
 
 ## Installation
 
@@ -160,7 +161,7 @@ The `logger` object has the following methods:
 
 ## Running Your Server
 
-### Test with `mcp-cli`
+### Debugging with `mcp-cli`
 
 The fastest way to test and debug your server is with [`mcp-cli`](https://github.com/wong2/mcp-cli):
 
@@ -178,6 +179,24 @@ Another way is to use the official [`MCP Inspector`](https://modelcontextprotoco
 ```bash
 npx litemcp inspect server.js
 ```
+
+### SSE Transport
+
+The servers are running with `stdio` transport by default. You can also run the server with SSE mode:
+
+```js
+server.start({
+  transportType: "sse",
+  sse: {
+    endpoint: "/sse",
+    port: 8080,
+  },
+});
+```
+
+This will start the server and listen for SSE connections on http://localhost:8080/sse.
+
+You can then connect to the server with [SSE transport](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse) in the client.
 
 ## Showcase
 

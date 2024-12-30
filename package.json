@@ -32,9 +32,10 @@
     "zod": "^3.23.8"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.3",
+    "@modelcontextprotocol/sdk": "^1.0.4",
     "citty": "^0.1.6",
     "execa": "^9.5.2",
+    "mcp-proxy": "^1.2.1",
     "zod-to-json-schema": "^3.23.5"
   },
   "peerDependencies": {
