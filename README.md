@@ -6,6 +6,7 @@ A TypeScript framework for building MCP (Model Context Protocol) servers elegant
 
 - Simple Tool, Resource, Prompt definition
 - Full TypeScript support
+- Built-in logging
 - Built-in error handling
 - Built-in CLI for testing and debugging
 
@@ -129,6 +130,33 @@ server.addPrompt({
   },
 });
 ```
+
+### Logging
+
+You can send log messages to the client with `server.logger`
+
+```js
+server.addTool({
+  name: "download",
+  description: "Download a file from a url",
+  parameters: z.object({
+    url: z.string(),
+  }),
+  execute: async (args) => {
+    server.logger.info("Downloading file", { url: args.url });
+    // ...
+    server.logger.info("Downloaded file", { url: args.url });
+    return response;
+  },
+});
+```
+
+The `logger` object has the following methods:
+
+- `debug(message: string, context?: JsonValue)`
+- `info(message: string, context?: JsonValue)`
+- `warn(message: string, context?: JsonValue)`
+- `error(message: string, context?: JsonValue)`
 
 ## Running Your Server
 

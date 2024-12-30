@@ -11,6 +11,7 @@ server.addTool({
     b: z.number(),
   }),
   execute: async (args) => {
+    server.logger.debug("Adding two numbers", args);
     return args.a + args.b;
   },
 });

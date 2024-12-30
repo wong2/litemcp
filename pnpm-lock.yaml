@@ -30,6 +30,9 @@ importers:
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(typescript@5.7.2)
+      type-fest:
+        specifier: ^4.31.0
+        version: 4.31.0
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -703,6 +706,10 @@ packages:
       typescript:
         optional: true
 
+  type-fest@4.31.0:
+    resolution: {integrity: sha512-yCxltHW07Nkhv/1F6wWBr8kz+5BGMfP+RbRSYFnegVb0qV/UMT0G0ElBloPVerqn4M2ZV80Ir1FtCcYv1cT6vQ==}
+    engines: {node: '>=16'}
+
   typescript@5.7.2:
     resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
     engines: {node: '>=14.17'}
@@ -1295,6 +1302,8 @@ snapshots:
       - supports-color
       - tsx
       - yaml
+
+  type-fest@4.31.0: {}
 
   typescript@5.7.2: {}
 

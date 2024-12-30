@@ -12,14 +12,17 @@ import {
   ServerCapabilities,
 } from "@modelcontextprotocol/sdk/types.js";
 import { zodToJsonSchema } from "zod-to-json-schema";
+import { Logger } from "./logger.js";
 import { Prompt, PromptArgument, Resource, Tool, ToolParameters } from "./types.js";
 
 export class LiteMCP {
+  public logger: Logger;
   #tools: Tool[];
   #resources: Resource[];
   #prompts: Prompt[];
 
   constructor(public name: string, public version: string) {
+    this.logger = new Logger();
     this.#tools = [];
     this.#resources = [];
     this.#prompts = [];
@@ -186,7 +189,7 @@ export class LiteMCP {
   }
 
   public async start(_transportType: "stdio" = "stdio") {
-    const capabilities: ServerCapabilities = {};
+    const capabilities: ServerCapabilities = { logging: {} };
     if (this.#tools.length) {
       capabilities.tools = {};
     }
@@ -197,6 +200,7 @@ export class LiteMCP {
       capabilities.prompts = {};
     }
     const server = new Server({ name: this.name, version: this.version }, { capabilities });
+    this.logger.setServer(server);
     this.setupHandlers(server);
     const transport = new StdioServerTransport();
     await server.connect(transport);
