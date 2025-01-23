@@ -221,7 +221,9 @@ export class LiteMCP {
       await startSSEServer({
         endpoint: opts.sse.endpoint as `/${string}`,
         port: opts.sse.port,
-        server,
+        createServer: async () => {
+          return server;
+        },
       });
       console.error(`${this.name} server running on SSE`);
     }
