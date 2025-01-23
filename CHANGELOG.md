@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0
+
+- Upgrade deps
+
 ## v0.8.0
 
 - Add support for server logging
