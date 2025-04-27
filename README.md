@@ -2,6 +2,12 @@
 
 A TypeScript framework for building MCP (Model Context Protocol) servers elegantly
 
+> **Deprecate notice**:
+> 
+> Since the [official SDK](https://github.com/modelcontextprotocol/typescript-sdk) already offers a high-level API similar to this project, this project will no longer be maintained.
+>
+> If you like the CLI commands in this project, you can use them independently: https://github.com/wong2/mcp-cli
+
 ## Features
 
 - Simple Tool, Resource, Prompt definition
