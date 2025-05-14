@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/wong2-litemcp-badge.png)](https://mseep.ai/app/wong2-litemcp)
+
 # LiteMCP
 
 A TypeScript framework for building MCP (Model Context Protocol) servers elegantly
